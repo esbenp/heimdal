@@ -1,9 +1,14 @@
 {
-    "name": "optimus/laravel-boilerplate",
+    "name": "optimus/heimdal",
     "autoload": {
         "psr-4": {
-            "Optimus\\LaravelBoilerplate\\": "src/"
+            "Optimus\\Heimdal\\": "src/"
         }
+    },
+    "autoload-dev": {
+        "files": [
+            "tests/helpers.php"
+        ]
     },
     "require": {
         "laravel/framework": "~5.1"
@@ -13,6 +18,9 @@
         "orchestra/testbench": "~3.1",
         "phpunit/phpunit": "~4.7",
         "satooshi/php-coveralls": "dev-master@dev"
+    },
+    "suggest": {
+        "asm89/stack-cors": "Needed to add CORS headers if add_cors_headers configuration is true"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,

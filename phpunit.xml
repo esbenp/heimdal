@@ -18,7 +18,7 @@
         </whitelist>
     </filter>
     <testsuites>
-        <testsuite name="Optimus\LaravelBoilerplate Test Suite">
+        <testsuite name="Optimus\Heimdal Test Suite">
             <directory suffix="Test.php">./tests/</directory>
         </testsuite>
     </testsuites>

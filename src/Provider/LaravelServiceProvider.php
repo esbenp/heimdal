@@ -20,20 +20,14 @@ class LaravelServiceProvider extends BaseProvider {
     private function registerAssets()
     {
         $this->publishes([
-            __DIR__.'/../config/package.php' => config_path('package.php')
+            __DIR__.'/../config/optimus.heimdal.php' => config_path('optimus.heimdal.php')
         ]);
     }
 
     private function loadConfig()
     {
-        if ($this->app['config']->get('package') === null) {
-            $this->app['config']->set('package', require __DIR__.'/../config/package.php');
+        if ($this->app['config']->get('optimus.heimdal') === null) {
+            $this->app['config']->set('optimus.heimdal', require __DIR__.'/../config/optimus.heimdal.php');
         }
     }
-
-    private function loadLangFile()
-    {
-        $this->loadTranslationsFrom(__DIR__.'/../lang', 'package');
-    }
-
 }
