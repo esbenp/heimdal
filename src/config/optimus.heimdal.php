@@ -19,8 +19,8 @@ return [
         'sentry' => [
             'class'  => \Optimus\Heimdal\Reporters\SentryReporter::class,
             'config' => [
-                'level' => 'info',
-                'key'   => '1234'
+                'dsn' => '',
+                'sentry_options' => []
             ]
         ]
     ],

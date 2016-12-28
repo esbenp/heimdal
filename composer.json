@@ -20,7 +20,8 @@
         "satooshi/php-coveralls": "dev-master@dev"
     },
     "suggest": {
-        "asm89/stack-cors": "Needed to add CORS headers if add_cors_headers configuration is true"
+        "asm89/stack-cors": "Needed to add CORS headers if add_cors_headers configuration is true",
+        "sentry/sentry": "Needed to report exceptions to Sentry.io"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
