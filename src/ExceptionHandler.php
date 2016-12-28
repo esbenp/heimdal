@@ -72,8 +72,10 @@ class ExceptionHandler extends LaravelExceptionHandler
     {
         $formatters = $this->config['formatters'];
 
+        // :: notation will otherwise not work for PHP <= 5.6
+        $responseFactoryClass = $this->config['response_factory'];
         // Allow users to have a base formatter for every response.
-        $response = $this->config['response_factory']::make($e);
+        $response = $responseFactoryClass::make($e);
         foreach($formatters as $exceptionType => $formatter) {
             if ($e instanceof $exceptionType) {
                 if (!class_exists($formatter) ||
