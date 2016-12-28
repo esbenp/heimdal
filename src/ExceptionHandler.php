@@ -4,31 +4,29 @@ namespace Optimus\Heimdal;
 
 use Exception;
 use ReflectionClass;
-use Illuminate\Foundation\Application;
 use InvalidArgumentException;
 use Asm89\Stack\CorsService;
 use Illuminate\Foundation\Exceptions\Handler as LaravelExceptionHandler;
 use Optimus\Heimdal\Formatters\BaseFormatter;
 use Optimus\Heimdal\Reporters\ReporterInterface;
-use Psr\Log\LoggerInterface;
+use Illuminate\Contracts\Container\Container;
 
 class ExceptionHandler extends LaravelExceptionHandler
 {
-    protected $app;
-
     protected $config;
+
+    protected $container;
 
     protected $debug;
 
     protected $reportResponses = [];
 
-    public function __construct(LoggerInterface $log, Application $app)
+    public function __construct(Container $container)
     {
-        parent::__construct($log);
+        parent::__construct($container);
 
-        $this->app = $app;
-        $this->config = $app['config']->get('optimus.heimdal');
-        $this->debug = $app['config']->get('app.debug');
+        $this->config = $container['config']->get('optimus.heimdal');
+        $this->debug = $container['config']->get('app.debug');
     }
 
     public function report(Exception $e)
@@ -45,9 +43,11 @@ class ExceptionHandler extends LaravelExceptionHandler
             }
 
             $config = isset($reporter['config']) && is_array($reporter['config']) ? $reporter['config'] : [];
-            $reporterInstance = $this->app->make($class, [$config]);
+            $reporterInstance = $this->container->make($class, [$config]);
             $this->reportResponses[$key] = $reporterInstance->report($e);
         }
+
+        return $this->reportResponses;
     }
 
     public function render($request, Exception $e)
@@ -61,7 +61,7 @@ class ExceptionHandler extends LaravelExceptionHandler
                 );
             }
 
-            $cors = $this->app->make(CorsService::class);
+            $cors = $this->container->make(CorsService::class);
             $cors->addActualRequestHeaders($response, $request);
         }
 

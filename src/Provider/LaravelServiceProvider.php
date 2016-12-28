@@ -1,6 +1,6 @@
 <?php
 
-namespace Optimus\LaravelBoilerplate\Provider;
+namespace Optimus\Heimdal\Provider;
 
 use Illuminate\Support\ServiceProvider as BaseProvider;
 
@@ -10,11 +10,6 @@ class LaravelServiceProvider extends BaseProvider {
     {
         $this->loadConfig();
         $this->registerAssets();
-    }
-
-    public function boot()
-    {
-        $this->loadLangFile();
     }
 
     private function registerAssets()

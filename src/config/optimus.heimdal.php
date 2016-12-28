@@ -4,7 +4,7 @@ use Symfony\Component\HttpKernel\Exception as SymfonyException;
 use Optimus\Heimdal\Formatters;
 
 return [
-    'add_cors_headers' => true,
+    'add_cors_headers' => false,
 
     // Has to be in prioritized order, e.g. highest priority first.
     'formatters' => [
