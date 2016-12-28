@@ -8,7 +8,7 @@
 
 ## Introduction
 
-Heimdal is an Exception handler build specifically for APIs.
+Heimdal is a Laravel exception handler build specifically for APIs.
 
 ### Why is it needed?
 
@@ -21,8 +21,6 @@ have [http://jsonapi.org/format/#error-objects](guidelines for how errors should
 ```bash
 composer require optimus/heimdal ~1.0
 ```
-
-### Laravel integration
 
 Add the service provider to `config/app.php`
 
