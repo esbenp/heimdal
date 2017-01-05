@@ -57,9 +57,11 @@ class ExceptionHandler extends LaravelExceptionHandler
                 !in_array(ReporterInterface::class, class_implements($class))
             ) {
                 throw new InvalidArgumentException(
-                    "%s: %s is not a valid reporter class.",
-                    $key,
-                    $class
+                    sprintf(
+                        "%s: %s is not a valid reporter class.",
+                        $key,
+                        $class
+                    )
                 );
             }
 

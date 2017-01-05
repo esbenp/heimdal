@@ -32,6 +32,9 @@ class ExceptionHandlerTest extends Orchestra\Testbench\TestCase {
         app()['config']->set('optimus.heimdal', getConfigStub());
     }
 
+    /**
+     * @return ExceptionHandler
+     */
     private function createHandler()
     {
         return app()->make(ExceptionHandler::class);
@@ -67,5 +70,36 @@ class ExceptionHandlerTest extends Orchestra\Testbench\TestCase {
         $response = $handler->render($request, new NotFoundHttpException('Test'));
 
         $this->assertEquals('Http', $response->getData()->message);
+    }
+
+    public function testReportInvalidReporterClass()
+    {
+        $handler = $this->createHandler();
+
+        $exception = new Exception('Test');
+
+        $reflectionHandler = new ReflectionClass($handler);
+
+        $property = $reflectionHandler->getProperty('config');
+
+        $property->setAccessible(true);
+
+        $config = $property->getValue($handler);
+
+        $config['reporters'] = [
+            'invalid' => [
+                'class' => stdClass::class,
+            ],
+        ];
+
+        $property->setValue($handler, $config);
+
+        $this->setExpectedException(
+            \InvalidArgumentException::class,
+            'invalid: stdClass is not a valid reporter class.'
+        );
+
+        $reflectionHandler->getMethod('report')
+                          ->invoke($handler, $exception);
     }
 }
