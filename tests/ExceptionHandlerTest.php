@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Optimus\Heimdal\ExceptionHandler;
 use Optimus\Heimdal\Formatters\BaseFormatter;
+use Orchestra\Testbench\TestCase;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -23,7 +24,7 @@ class HttpExceptionFormatter extends BaseFormatter
     }
 }
 
-class ExceptionHandlerTest extends Orchestra\Testbench\TestCase {
+class ExceptionHandlerTest extends TestCase {
 
     public function setUp()
     {
@@ -101,5 +102,43 @@ class ExceptionHandlerTest extends Orchestra\Testbench\TestCase {
 
         $reflectionHandler->getMethod('report')
                           ->invoke($handler, $exception);
+    }
+
+    public function testInvalidFormatterClass()
+    {
+        $handler = $this->createHandler();
+
+        $request = null;
+
+        $exception = new Exception('Test');
+        $formatter = new stdClass();
+
+        $reflectionHandler = new ReflectionClass($handler);
+
+        $property = $reflectionHandler->getProperty('config');
+
+        $property->setAccessible(true);
+
+        $config = $property->getValue($handler);
+
+        $config['formatters'] = [
+            get_class($exception) => get_class($formatter),
+        ];
+
+        $property->setValue($handler, $config);
+
+        $this->setExpectedException(
+            \InvalidArgumentException::class,
+            sprintf(
+                "% is not a valid formatter class.",
+                get_class($formatter)
+            )
+        );
+
+        $method = $reflectionHandler->getMethod('generateExceptionResponse');
+
+        $method->setAccessible(true);
+
+        $method->invokeArgs($handler, [$request, $exception]);
     }
 }

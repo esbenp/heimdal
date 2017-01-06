@@ -1,13 +1,12 @@
 <?php
 
-use Optimus\Heimdal\Formatters\ExceptionFormatter;
-use Optimus\Heimdal\Formatters\HttpExceptionFormatter;
 use Optimus\Heimdal\Formatters\UnprocessableEntityHttpExceptionFormatter;
 use Optimus\Heimdal\ResponseFactory;
+use Orchestra\Testbench\TestCase;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 
-class UnprocessableEntityHttpExceptionFormatterTest extends Orchestra\Testbench\TestCase {
-
+class UnprocessableEntityHttpExceptionFormatterTest extends TestCase
+{
     public function testErrorObjectIsCreatedByJsonApiStandard()
     {
         $errorsAsJson = json_encode([

@@ -119,7 +119,7 @@ class ExceptionHandler extends LaravelExceptionHandler
         $response = $responseFactoryClass::make($e);
 
         foreach($formatters as $exceptionType => $formatter) {
-            if (!$e instanceof $exceptionType) {
+            if (!($e instanceof $exceptionType)) {
                 continue;
             }
 

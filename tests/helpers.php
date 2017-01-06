@@ -1,6 +1,8 @@
 <?php
 
-class TestReporter implements Optimus\Heimdal\Reporters\ReporterInterface
+use Optimus\Heimdal\Reporters\ReporterInterface;
+
+class TestReporter implements ReporterInterface
 {
     private $config;
 
