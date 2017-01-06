@@ -2,8 +2,7 @@
     "name": "optimus/heimdal",
     "autoload": {
         "psr-4": {
-            "Optimus\\Heimdal\\": "src/",
-            "Optimus\\HeimdalTest\\": "tests/"
+            "Optimus\\Heimdal\\": "src/"
         }
     },
     "autoload-dev": {
