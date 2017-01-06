@@ -6,10 +6,10 @@ use Exception;
 use ReflectionClass;
 use InvalidArgumentException;
 use Asm89\Stack\CorsService;
-use Optimus\Heimdal\Formatters\BaseFormatter;
-use Illuminate\Contracts\Container\Container;
-use Optimus\Heimdal\Reporters\ReporterInterface;
 use Illuminate\Foundation\Exceptions\Handler as LaravelExceptionHandler;
+use Optimus\Heimdal\Formatters\BaseFormatter;
+use Optimus\Heimdal\Reporters\ReporterInterface;
+use Illuminate\Contracts\Container\Container;
 
 class ExceptionHandler extends LaravelExceptionHandler
 {
