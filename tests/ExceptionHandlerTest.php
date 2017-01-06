@@ -49,6 +49,28 @@ class ExceptionHandlerTest extends Orchestra\Testbench\TestCase {
         ], $responses);
     }
 
+    public function testReportIgnoredException()
+    {
+        $handler = $this->createHandler();
+
+        $exception = new Exception('Test');
+
+        $reflectionHandler = new ReflectionClass($handler);
+
+        $property = $reflectionHandler->getProperty('dontReport');
+
+        $property->setAccessible(true);
+
+        $property->setValue($handler, [
+            get_class($exception)
+        ]);
+
+        $responses = $reflectionHandler->getMethod('report')
+                                       ->invoke($handler, $exception);
+
+        $this->assertEquals([], $responses);
+    }
+
     public function testRendersAppropriateFormatter()
     {
         app()['config']->set('optimus.heimdal.formatters', [
