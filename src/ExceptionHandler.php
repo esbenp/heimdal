@@ -46,6 +46,10 @@ class ExceptionHandler extends LaravelExceptionHandler
 
         $this->reportResponses = [];
 
+        if ($this->shouldntReport($e)) {
+            return $this->reportResponses;
+        }
+
         $reporters = $this->config['reporters'];
 
         foreach ($reporters as $key => $reporter) {
