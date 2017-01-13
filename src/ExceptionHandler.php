@@ -21,6 +21,10 @@ class ExceptionHandler extends LaravelExceptionHandler
 
     protected $reportResponses = [];
 
+    /**
+     * ExceptionHandler constructor.
+     * @param Container $container
+     */
     public function __construct(Container $container)
     {
         parent::__construct($container);
@@ -29,6 +33,13 @@ class ExceptionHandler extends LaravelExceptionHandler
         $this->debug = $container['config']->get('app.debug');
     }
 
+    /**
+     * Report
+     *
+     * @param Exception $e
+     * @return array
+     * @throws Exception
+     */
     public function report(Exception $e)
     {
         parent::report($e);
@@ -43,18 +54,38 @@ class ExceptionHandler extends LaravelExceptionHandler
 
         foreach ($reporters as $key => $reporter) {
             $class = !isset($reporter['class']) ? null : $reporter['class'];
-            if (is_null($class) || !class_exists($class) || !in_array(ReporterInterface::class, class_implements($class))) {
-                throw new InvalidArgumentException("$key: $class is not a valid reporter class.");
+
+            if (
+                is_null($class) ||
+                !class_exists($class) ||
+                !in_array(ReporterInterface::class, class_implements($class))
+            ) {
+                throw new InvalidArgumentException(
+                    sprintf(
+                        "%s: %s is not a valid reporter class.",
+                        $key,
+                        $class
+                    )
+                );
             }
 
             $config = isset($reporter['config']) && is_array($reporter['config']) ? $reporter['config'] : [];
+
             $reporterInstance = $this->container->make($class, [$config]);
+
             $this->reportResponses[$key] = $reporterInstance->report($e);
         }
 
         return $this->reportResponses;
     }
 
+    /**
+     * Render
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param Exception $e
+     * @return mixed
+     */
     public function render($request, Exception $e)
     {
         $response = $this->generateExceptionResponse($request, $e);
@@ -66,6 +97,7 @@ class ExceptionHandler extends LaravelExceptionHandler
                 );
             }
 
+            /** @var CorsService $cors */
             $cors = $this->container->make(CorsService::class);
             $cors->addActualRequestHeaders($response, $request);
         }
@@ -73,25 +105,44 @@ class ExceptionHandler extends LaravelExceptionHandler
         return $response;
     }
 
+    /**
+     * Generate exception response
+     *
+     * @param $request
+     * @param Exception $e
+     * @return mixed
+     */
     private function generateExceptionResponse($request, Exception $e)
     {
         $formatters = $this->config['formatters'];
 
         // :: notation will otherwise not work for PHP <= 5.6
         $responseFactoryClass = $this->config['response_factory'];
+
         // Allow users to have a base formatter for every response.
         $response = $responseFactoryClass::make($e);
-        foreach($formatters as $exceptionType => $formatter) {
-            if ($e instanceof $exceptionType) {
-                if (!class_exists($formatter) ||
-                    !(new ReflectionClass($formatter))->isSubclassOf(new ReflectionClass(BaseFormatter::class))) {
-                    throw new InvalidArgumentException("$formatter is not a valid formatter class.");
-                }
 
-                $formatterInstance = new $formatter($this->config, $this->debug);
-                $formatterInstance->format($response, $e, $this->reportResponses);
-                break;
+        foreach($formatters as $exceptionType => $formatter) {
+            if (!($e instanceof $exceptionType)) {
+                continue;
             }
+
+            if (
+                !class_exists($formatter) ||
+                !(new ReflectionClass($formatter))->isSubclassOf(new ReflectionClass(BaseFormatter::class))
+            ) {
+                throw new InvalidArgumentException(
+                    sprintf(
+                        "%s is not a valid formatter class.",
+                        $formatter
+                    )
+                );
+            }
+
+            $formatterInstance = new $formatter($this->config, $this->debug);
+            $formatterInstance->format($response, $e, $this->reportResponses);
+
+            break;
         }
 
         return $response;

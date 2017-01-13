@@ -3,9 +3,11 @@
 use Optimus\Heimdal\Formatters\ExceptionFormatter;
 use Optimus\Heimdal\Formatters\HttpExceptionFormatter;
 use Optimus\Heimdal\ResponseFactory;
+use Orchestra\Testbench\TestCase;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
-class HttpExceptionFormatterTest extends Orchestra\Testbench\TestCase {
+class HttpExceptionFormatterTest extends TestCase
+{
 
     public function testHttpCodeIsset()
     {
