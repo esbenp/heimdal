@@ -13,8 +13,8 @@ Heimdal is a Laravel exception handler build specifically for APIs.
 ### Why is it needed?
 
 When building APIs there are specific formatting do's and dont's on how to send errors back to the user. Frameworks like Laravel are not
-build specifically for API builders. This small library just bridges that gap. For instance, specifications like [https://jsonapi.org](JSON API)
-have [http://jsonapi.org/format/#error-objects](guidelines for how errors should be formatted).
+build specifically for API builders. This small library just bridges that gap. For instance, specifications like [JSON API](https://jsonapi.org)
+have [guidelines for how errors should be formatted](http://jsonapi.org/format/#error-objects).
 
 ## Installation
 
@@ -59,7 +59,7 @@ described below.
 ### Is this not what Laravel does?
 
 Yes, pretty much. However, if you want to report to something like Sentry you usually do this through something like Monolog. The problem
-with Monolog is that it is difficult to [https://github.com/Seldaek/monolog/issues/651](pick up the response of the reporters). For instance,
+with Monolog is that it is difficult to [pick up the response of the reporters](https://github.com/Seldaek/monolog/issues/651). For instance,
 Sentry reports back a unique ID for every reported exception which is extremely useful to give to the user, so they can give it to customer
 support. Heimdal supports this out-of-the-box by giving the response of all reporters to the formatter classes. This makes it trivial
 for formatters to use the response of the reporters in their final response to the user.
