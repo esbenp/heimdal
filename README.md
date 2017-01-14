@@ -193,6 +193,43 @@ Now we simply add it to `config/optimus.heimdal.php`
 
 Now all `NotFoundHttpException`s will be formatted using our custom formatter.
 
+## Available Reporters
+
+### [Sentry](https://getsentry.com)
+
+To send Exceptions to Sentry add the following reporter configuration in `config/optimus.heimdal.php`.
+
+```
+'reporters' => [
+    'sentry' => [
+        'class'  => \Optimus\Heimdal\Reporters\SentryReporter::class,
+        'config' => [
+            'dsn' => '',
+            // For extra options see https://docs.sentry.io/clients/php/config/
+            // php version and environment are automatically added.
+            'sentry_options' => []
+        ]
+    ]
+]
+```
+
+### [Bugsnag](https://bugsnag.com/)
+
+[Thanks to Nikolaj Løvenhardt Petersen for adding support](https://github.com/nikolajlovenhardt)
+
+[Install Bugsnag using the Laravel installation guide](https://docs.bugsnag.com/platforms/php/laravel/)
+
+To send Exceptions to Bugsnag add the following reporter configuration in `config/optimus.heimdal.php`.
+
+```
+'reporters' => [
+    'sentry' => [
+        'class'  => \Optimus\Heimdal\Reporters\BugsnagReporter::class,
+        'config' => []
+    ]
+]
+```
+
 ## Standards
 
 This package is compliant with [PSR-1], [PSR-2] and [PSR-4]. If you notice compliance oversights,
