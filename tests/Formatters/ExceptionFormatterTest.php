@@ -2,8 +2,10 @@
 
 use Optimus\Heimdal\Formatters\ExceptionFormatter;
 use Optimus\Heimdal\ResponseFactory;
+use Orchestra\Testbench\TestCase;
 
-class ExceptionFormatterTest extends Orchestra\Testbench\TestCase {
+class ExceptionFormatterTest extends TestCase
+{
 
     public function setUp()
     {
