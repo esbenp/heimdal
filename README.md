@@ -223,7 +223,7 @@ To send Exceptions to Bugsnag add the following reporter configuration in `confi
 
 ```
 'reporters' => [
-    'sentry' => [
+    'bugsnag' => [
         'class'  => \Optimus\Heimdal\Reporters\BugsnagReporter::class,
         'config' => []
     ]
