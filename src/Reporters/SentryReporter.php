@@ -9,6 +9,8 @@ use Optimus\Heimdal\Reporters\ReporterInterface;
 
 class SentryReporter implements ReporterInterface
 {
+    private $config;
+
     public function __construct(array $config)
     {
         $config = $this->extendConfig($config);
@@ -17,12 +19,23 @@ class SentryReporter implements ReporterInterface
             throw new InvalidArgumentException("Sentry client is not installed. Use composer require sentry/sentry.");
         }
 
-        $this->raven = new Raven_Client($config['dsn'], $config['sentry_options']);
+        $this->config = $config;
     }
 
     public function report(Exception $e)
     {
-        return $this->raven->captureException($e);
+        $options = $this->config['sentry_options'];
+
+        if (is_callable($options)) {
+            $options = options($e);
+        }
+
+        $raven = new Raven_Client(
+            $this->config['dsn'],
+            $options
+        );
+
+        return $raven->captureException($e);
     }
 
     public function extendConfig(array $config)
