@@ -12,6 +12,12 @@ class UnprocessableEntityHttpExceptionFormatter extends BaseFormatter
     {
         // Laravel validation errors will return JSON string
         $decoded = json_decode($e->getMessage(), true);
+        // Message was not valid JSON
+        // This occurs when we throw UnprocessableEntityHttpExceptions
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            // Mimick the structure of Laravel validation errors
+            $decoded = [[$e->getMessage()]];
+        }
 
         // Laravel errors are formatted as {"field": [/*errors as strings*/]}
         $data = array_reduce($decoded, function ($carry, $item) use ($e) {
