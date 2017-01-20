@@ -24,18 +24,19 @@ class SentryReporter implements ReporterInterface
 
     public function report(Exception $e)
     {
-        $options = $this->config['sentry_options'];
-
-        if (is_callable($options)) {
-            $options = options($e);
-        }
+        $options = $this->config;
 
         $raven = new Raven_Client(
             $this->config['dsn'],
             $options
         );
 
-        return $raven->captureException($e);
+        $data = null;
+        if (isset($options['add_context']) && is_callable($options['add_context'])) {
+            $data = $options['add_context']($e);
+        }
+
+        return $raven->captureException($e, $data);
     }
 
     public function extendConfig(array $config)

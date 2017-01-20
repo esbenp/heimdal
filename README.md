@@ -213,6 +213,54 @@ To send Exceptions to Sentry add the following reporter configuration in `config
 ]
 ```
 
+#### Adding context at runtime
+
+Sometimes you want to add information at runtime, like request data, user information or similar.
+For this you can add the `add_context` key to the `config` array. Below is an example of how it could be implemented.
+
+```
+'reporters' => [
+    'sentry' => [
+        'class'  => \Optimus\Heimdal\Reporters\SentryReporter::class,
+        'config' => [
+            'dsn' => env('SENTRY_DSN'),
+            // For extra options see https://docs.sentry.io/clients/php/config/
+            // php version and environment are automatically added.
+            'add_context' => function (Exception $e) {
+                $context = [
+                    'environment' => app()->environment(),
+                    'release' => \Infrastructure\Version::getGitTag()
+                ];
+
+                $user = \Session::getMyUser();
+                if ($user) {
+                    $context['user'] = [
+                        'id' => $user->id,
+                        'email' => $user->email,
+                    ];
+                } else {
+                    $context['user'] = [];
+                }
+
+                // When running in console request is not available
+                if (substr(php_sapi_name(), 0, 3) !== 'cli') {
+                    $request = app('request');
+
+                    if (!isset($context['extra'])) {
+                        $context['extra'] = [];
+                    }
+
+                    $context['extra']['request_data'] = json_encode($request->all());
+                    $context['user']['ip_address'] = \Request::getClientIp();
+                }
+
+                return $context;
+            }
+        ]
+    ]
+]
+```
+
 ### [Bugsnag](https://bugsnag.com/)
 
 [Thanks to Nikolaj Løvenhardt Petersen for adding support](https://github.com/nikolajlovenhardt)
