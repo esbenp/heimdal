@@ -232,7 +232,7 @@ For this you can add the `add_context` key to the `config` array. Below is an ex
                     'release' => \Infrastructure\Version::getGitTag()
                 ];
 
-                $user = \Session::getMyUser();
+                $user = \Auth::User();
                 if ($user) {
                     $context['user'] = [
                         'id' => $user->id,
