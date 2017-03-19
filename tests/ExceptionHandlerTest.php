@@ -45,7 +45,8 @@ class ExceptionHandlerTest extends TestCase {
     {
         $handler = $this->createHandler();
 
-        $responses = $handler->report(new Exception('Test'));
+        $handler->report(new Exception('Test'));
+        $responses = $handler->getReportResponses();
 
         $this->assertEquals([
             'test' => 'Test: 1234',

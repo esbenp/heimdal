@@ -37,8 +37,8 @@ class ExceptionHandler extends LaravelExceptionHandler
      * Report
      *
      * @param Exception $e
-     * @return array
      * @throws Exception
+     * @returns void
      */
     public function report(Exception $e)
     {
@@ -75,8 +75,6 @@ class ExceptionHandler extends LaravelExceptionHandler
 
             $this->reportResponses[$key] = $reporterInstance->report($e);
         }
-
-        return $this->reportResponses;
     }
 
     /**
@@ -84,7 +82,7 @@ class ExceptionHandler extends LaravelExceptionHandler
      *
      * @param \Illuminate\Http\Request $request
      * @param Exception $e
-     * @return mixed
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function render($request, Exception $e)
     {
@@ -146,5 +144,13 @@ class ExceptionHandler extends LaravelExceptionHandler
         }
 
         return $response;
+    }
+
+    /*
+     * @returns array
+     */
+    public function getReportResponses()
+    {
+        return $this->reportResponses;
     }
 }
