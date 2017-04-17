@@ -278,6 +278,24 @@ To send Exceptions to Bugsnag add the following reporter configuration in `confi
 ]
 ```
 
+### [Rollbar](https://rollbar.com)
+
+To send Exceptions to Rollbar add the following reporter configuration in `config/optimus.heimdal.php`.
+
+```
+'reporters' => [
+'rollbar' => [
+        'class'  => \Optimus\Heimdal\Reporters\RollbarReporter::class,
+        'config' => [
+            'access_token' => '',
+            'environment' => 'production'
+        ]
+    ]
+]
+```
+
+The complete list of config options can be found in [here](https://github.com/rollbar/rollbar-php#configuration-reference)
+
 ## Standards
 
 This package is compliant with [PSR-1], [PSR-2] and [PSR-4]. If you notice compliance oversights,

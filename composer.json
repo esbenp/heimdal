@@ -22,7 +22,8 @@
     },
     "suggest": {
         "asm89/stack-cors": "Needed to add CORS headers if add_cors_headers configuration is true",
-        "sentry/sentry": "Needed to report exceptions to Sentry.io"
+        "sentry/sentry": "Needed to report exceptions to Sentry.io",
+        "rollbar/rollbar": "Needed to report exceptions to Rollbar.com"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
