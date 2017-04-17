@@ -71,7 +71,7 @@ class ExceptionHandler extends LaravelExceptionHandler
 
             $config = isset($reporter['config']) && is_array($reporter['config']) ? $reporter['config'] : [];
 
-            $reporterInstance = $this->container->make($class, [$config]);
+            $reporterInstance = $this->container->make($class)($config);
 
             $this->reportResponses[$key] = $reporterInstance->report($e);
         }
