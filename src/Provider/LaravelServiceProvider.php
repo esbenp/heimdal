@@ -4,6 +4,7 @@ namespace Optimus\Heimdal\Provider;
 
 use Illuminate\Support\ServiceProvider as BaseProvider;
 use Optimus\Heimdal\Reporters\BugsnagReporter;
+use Optimus\Heimdal\Reporters\RollbarReporter;
 use Optimus\Heimdal\Reporters\SentryReporter;
 
 class LaravelServiceProvider extends BaseProvider {
@@ -40,6 +41,12 @@ class LaravelServiceProvider extends BaseProvider {
         $this->app->bind(SentryReporter::class, function ($app) {
             return function (array $config) {
                 return new SentryReporter($config);
+            };
+        });
+
+        $this->app->bind(RollbarReporter::class, function ($app) {
+            return function (array $config) {
+                return new RollbarReporter($config);
             };
         });
     }
