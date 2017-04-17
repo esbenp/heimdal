@@ -38,6 +38,12 @@ class ExceptionHandlerTest extends TestCase {
      */
     private function createHandler()
     {
+        app()->bind(TestReporter::class, function($app){
+            return function (array $config) {
+                return new TestReporter($config);
+            };
+        });
+
         return app()->make(ExceptionHandler::class);
     }
 
