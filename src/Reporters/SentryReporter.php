@@ -24,7 +24,7 @@ class SentryReporter implements ReporterInterface
 
     public function report(Exception $e)
     {
-        $options = $this->config;
+        $options = $this->config['sentry_options'];
 
         $raven = new Raven_Client(
             $this->config['dsn'],
