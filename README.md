@@ -199,7 +199,7 @@ Now all `NotFoundHttpException`s will be formatted using our custom formatter.
 
 To send Exceptions to Sentry add the following reporter configuration in `config/optimus.heimdal.php`.
 
-```
+```php
 'reporters' => [
     'sentry' => [
         'class'  => \Optimus\Heimdal\Reporters\SentryReporter::class,
@@ -218,7 +218,7 @@ To send Exceptions to Sentry add the following reporter configuration in `config
 Sometimes you want to add information at runtime, like request data, user information or similar.
 For this you can add the `add_context` key to the `config` array. Below is an example of how it could be implemented.
 
-```
+```php
 'reporters' => [
     'sentry' => [
         'class'  => \Optimus\Heimdal\Reporters\SentryReporter::class,
@@ -269,7 +269,7 @@ For this you can add the `add_context` key to the `config` array. Below is an ex
 
 To send Exceptions to Bugsnag add the following reporter configuration in `config/optimus.heimdal.php`.
 
-```
+```php
 'reporters' => [
     'bugsnag' => [
         'class'  => \Optimus\Heimdal\Reporters\BugsnagReporter::class,
@@ -282,7 +282,7 @@ To send Exceptions to Bugsnag add the following reporter configuration in `confi
 
 To send Exceptions to Rollbar add the following reporter configuration in `config/optimus.heimdal.php`.
 
-```
+```php
 'reporters' => [
 'rollbar' => [
         'class'  => \Optimus\Heimdal\Reporters\RollbarReporter::class,
