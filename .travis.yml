@@ -2,9 +2,7 @@ language: php
 install:
     composer install
 php:
-  - 5.6
   - 7.0
-  - hhvm
 
 script:
   - mkdir -p build/logs
