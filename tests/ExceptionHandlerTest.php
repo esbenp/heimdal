@@ -26,7 +26,7 @@ class HttpExceptionFormatter extends BaseFormatter
 
 class ExceptionHandlerTest extends TestCase {
 
-    public function setUp()
+    public function setUp() :void
     {
         parent::setUp();
 
@@ -124,10 +124,9 @@ class ExceptionHandlerTest extends TestCase {
 
         $property->setValue($handler, $config);
 
-        $this->setExpectedException(
-            \InvalidArgumentException::class,
-            'invalid: stdClass is not a valid reporter class.'
-        );
+        $this->expectException(\InvalidArgumentException::class);
+
+        $this->expectExceptionMessage('invalid: stdClass is not a valid reporter class.');
 
         $reflectionHandler->getMethod('report')
                           ->invoke($handler, $exception);
@@ -156,13 +155,11 @@ class ExceptionHandlerTest extends TestCase {
 
         $property->setValue($handler, $config);
 
-        $this->setExpectedException(
-            \InvalidArgumentException::class,
-            sprintf(
-                "% is not a valid formatter class.",
-                get_class($formatter)
-            )
-        );
+        $this->expectException(\InvalidArgumentException::class);
+
+        $exceptionMessage = sprintf("% is not a valid formatter class.", get_class($formatter));
+
+        $this->expectExceptionMessage($exceptionMessage);
 
         $method = $reflectionHandler->getMethod('generateExceptionResponse');
 

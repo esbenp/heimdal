@@ -11,16 +11,16 @@ class BugsnagReporterTest extends TestCase
 
     protected $client;
 
-    public function setUp()
+    public function setUp() :void
     {
         parent::setUp();
-        
+
         $this->client = $this->getMockBuilder(stdClass::class)
             ->setMethods(['notifyException'])
             ->getMock();
 
         $this->app->instance(Client::class, $this->client);
-        
+
         $this->bugsnagReporter = new BugsnagReporter([]);
     }
 
