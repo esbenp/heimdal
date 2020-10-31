@@ -2,7 +2,7 @@
 
 namespace Optimus\Heimdal\Formatters;
 
-use Exception;
+use Throwable;
 use Illuminate\Http\JsonResponse;
 
 abstract class BaseFormatter
@@ -17,5 +17,5 @@ abstract class BaseFormatter
         $this->config = $config;
     }
 
-    abstract protected function format(JsonResponse $response, Exception $e, array $reporterResponses);
+    abstract protected function format(JsonResponse $response, Throwable $e, array $reporterResponses);
 }

@@ -2,7 +2,7 @@
 
 namespace Optimus\Heimdal\Reporters;
 
-use Exception;
+use Throwable;
 use InvalidArgumentException;
 use Raven_Client;
 use Optimus\Heimdal\Reporters\ReporterInterface;
@@ -22,7 +22,7 @@ class SentryReporter implements ReporterInterface
         $this->config = $config;
     }
 
-    public function report(Exception $e)
+    public function report(Throwable $e)
     {
         $options = $this->config['sentry_options'];
 

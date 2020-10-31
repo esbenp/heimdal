@@ -2,13 +2,13 @@
 
 namespace Optimus\Heimdal\Formatters;
 
-use Exception;
+use Throwable;
 use Illuminate\Http\JsonResponse;
 use Optimus\Heimdal\Formatters\BaseFormatter;
 
 class ExceptionFormatter extends BaseFormatter
 {
-    public function format(JsonResponse $response, Exception $e, array $reporterResponses)
+    public function format(JsonResponse $response, Throwable $e, array $reporterResponses)
     {
         $response->setStatusCode(500);
         $data = $response->getData(true);
