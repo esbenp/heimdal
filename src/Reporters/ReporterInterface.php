@@ -2,9 +2,9 @@
 
 namespace Optimus\Heimdal\Reporters;
 
-use Exception;
+use Throwable;
 
 interface ReporterInterface
 {
-    public function report(Exception $e);
+    public function report(Throwable $e);
 }

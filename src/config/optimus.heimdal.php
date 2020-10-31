@@ -10,7 +10,7 @@ return [
     'formatters' => [
         SymfonyException\UnprocessableEntityHttpException::class => Formatters\UnprocessableEntityHttpExceptionFormatter::class,
         SymfonyException\HttpException::class => Formatters\HttpExceptionFormatter::class,
-        Exception::class => Formatters\ExceptionFormatter::class,
+        Throwable::class => Formatters\ExceptionFormatter::class,
     ],
 
     'response_factory' => \Optimus\Heimdal\ResponseFactory::class,
