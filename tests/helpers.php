@@ -1,6 +1,6 @@
 <?php
 
-use Optimus\Heimdal\Reporters\ReporterInterface;
+use Digitalroll\Heimdal\Reporters\ReporterInterface;
 
 class TestReporter implements ReporterInterface
 {

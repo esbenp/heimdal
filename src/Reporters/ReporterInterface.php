@@ -1,6 +1,6 @@
 <?php
 
-namespace Optimus\Heimdal\Reporters;
+namespace Digitalroll\Heimdal\Reporters;
 
 use Throwable;
 

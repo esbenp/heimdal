@@ -1,7 +1,7 @@
 <?php
 
 use Symfony\Component\HttpKernel\Exception as SymfonyException;
-use Optimus\Heimdal\Formatters;
+use Digitalroll\Heimdal\Formatters;
 
 return [
     'add_cors_headers' => false,
@@ -13,11 +13,11 @@ return [
         Throwable::class => Formatters\ExceptionFormatter::class,
     ],
 
-    'response_factory' => \Optimus\Heimdal\ResponseFactory::class,
+    'response_factory' => \Digitalroll\Heimdal\ResponseFactory::class,
 
     'reporters' => [
         /*'sentry' => [
-            'class'  => \Optimus\Heimdal\Reporters\SentryReporter::class,
+            'class'  => \Digitalroll\Heimdal\Reporters\SentryReporter::class,
             'config' => [
                 'dsn' => '',
                 // For extra options see https://docs.sentry.io/clients/php/config/

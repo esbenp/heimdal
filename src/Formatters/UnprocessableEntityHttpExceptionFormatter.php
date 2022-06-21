@@ -1,10 +1,10 @@
 <?php
 
-namespace Optimus\Heimdal\Formatters;
+namespace Digitalroll\Heimdal\Formatters;
 
 use Throwable;
 use Illuminate\Http\JsonResponse;
-use Optimus\Heimdal\Formatters\BaseFormatter;
+use Digitalroll\Heimdal\Formatters\BaseFormatter;
 
 class UnprocessableEntityHttpExceptionFormatter extends BaseFormatter
 {
