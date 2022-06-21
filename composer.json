@@ -1,9 +1,9 @@
 {
-    "name": "optimus/heimdal",
+    "name": "digitalroll/heimdal",
     "description": "Laravel 9 support",
     "autoload": {
         "psr-4": {
-            "Optimus\\Heimdal\\": "src/"
+            "Digitalroll\\Heimdal\\": "src/"
         }
     },
     "autoload-dev": {
