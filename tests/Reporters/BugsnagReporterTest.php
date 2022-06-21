@@ -1,7 +1,7 @@
 <?php
 
 use Bugsnag\Client;
-use Optimus\Heimdal\Reporters\BugsnagReporter;
+use Digitalroll\Heimdal\Reporters\BugsnagReporter;
 use Orchestra\Testbench\TestCase;
 
 class BugsnagReporterTest extends TestCase

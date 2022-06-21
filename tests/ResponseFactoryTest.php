@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Http\JsonResponse;
-use Optimus\Heimdal\ResponseFactory;
+use Digitalroll\Heimdal\ResponseFactory;
 use Orchestra\Testbench\TestCase;
 
 class ResponseFactoryTest extends TestCase
