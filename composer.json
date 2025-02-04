@@ -25,6 +25,13 @@
         "sentry/sentry": "Needed to report exceptions to Sentry.io",
         "rollbar/rollbar": "Needed to report exceptions to Rollbar.com"
     },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Optimus\\Heimdal\\Provider\\LaravelServiceProvider"
+            ]
+        }
+    },
     "minimum-stability": "dev",
     "prefer-stable": true,
     "license": "MIT"
